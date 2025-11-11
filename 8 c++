@@ -1,0 +1,91 @@
+#include <iostream>
+#include <cstdlib>     // for exit()
+using namespace std;
+
+#define MAX_SIZE 50
+
+template <class T>
+class stack {
+private:
+    T stk[MAX_SIZE];
+    int top;
+
+public:
+    stack();      // constructor
+    void push();
+    void pop();
+    void display();
+};
+
+template <class T>
+stack<T>::stack() {
+    top = -1;
+}
+
+/* ---------- PUSH ---------- */
+template <class T>
+void stack<T>::push() {
+    if (top == MAX_SIZE - 1) {
+        cout << "Stack Overflow...\n";
+        return;
+    }
+    T item;
+    cout << "Enter an item to be pushed: ";
+    cin >> item;
+    top++;
+    stk[top] = item;
+    cout << "Pushed Successfully ...\n";
+}
+
+/* ---------- POP ---------- */
+template <class T>
+void stack<T>::pop() {
+    if (top == -1) {
+        cout << "Stack is Underflow\n";
+        return;
+    }
+    T item = stk[top];
+    top--;
+    cout << "Popped item: " << item << "\n";
+}
+
+/* ---------- DISPLAY ---------- */
+template <class T>
+void stack<T>::display() {
+    if (top == -1) {
+        cout << "Stack Under Flow\n";
+        return;
+    }
+    cout << "Elements in the Stack (top to bottom):\n";
+    for (int i = top; i >= 0; i--) {
+        cout << "|" << stk[i] << "|\n";
+    }
+}
+
+/* ---------- MAIN ---------- */
+int main() {
+    stack<int> st;        // change int → any type you want
+    int choice;
+
+    while (1) {
+        cout << "\n\n*****Menu for Stack operations*****\n\n";
+        cout << "1. PUSH\n";
+        cout << "2. POP\n";
+        cout << "3. DISPLAY\n";
+        cout << "4. EXIT\n";
+        cout << "Enter Choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: st.push();      break;
+            case 2: st.pop();       break;
+            case 3:
+                cout << "Elements in the Stack are ...\n";
+                st.display();
+                break;
+            case 4: exit(0);
+            default: cout << "Invalid choice...Try again...\n";
+        }
+    }
+    return 0;   // never reached
+}
